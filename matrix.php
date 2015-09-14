@@ -89,6 +89,7 @@ class matrixGenerator
         }
         $matrix->updateEscapes();
         $matrix->setNo($pointNo);
+        $this->display($pointNo);
         return $matrix;
     }
 
@@ -125,11 +126,16 @@ class matrixGenerator
         return count($this->matrix) - 1;
     }
 
-    public function display()
+    public function display($stepNo = false)
     {
         $len = strlen($this->points);
         $colors = new Colors();
-        echo "Matrix escapes:\n";
+        if (!empty($stepNo)) {
+            echo $colors->getColoredString("Step " . $stepNo . "", 'light_cyan');
+        } else {
+            echo $colors->getColoredString("Matrix escapes", 'light_cyan');
+        }
+        echo "\n";
         for ($x = 1; $x <= $this->size; $x++) {
             for ($y = 1; $y <= $this->size; $y++) {
                 $matrix = $this->getMatrixPoint($x, $y);
